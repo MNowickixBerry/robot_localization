@@ -66,9 +66,9 @@ namespace RobotLocalization
     transform_timeout_(ros::Duration(0)),
     tf_listener_(tf_buffer_)
   {
-    ROS_INFO("Waiting for valid clock time...");
+    ROS_DEBUG("Waiting for valid clock time...");
     ros::Time::waitForValid();
-    ROS_INFO("Valid clock time received. Starting node.");
+    ROS_DEBUG("Valid clock time received. Starting node.");
 
     latest_cartesian_covariance_.resize(POSE_SIZE, POSE_SIZE);
     latest_odom_covariance_.resize(POSE_SIZE, POSE_SIZE);
@@ -285,7 +285,7 @@ namespace RobotLocalization
        */
       imu_yaw += (magnetic_declination_ + yaw_offset_ + utm_meridian_convergence_);
 
-      ROS_INFO_STREAM("Corrected for magnetic declination of " << std::fixed << magnetic_declination_ <<
+      ROS_DEBUG_STREAM("Corrected for magnetic declination of " << std::fixed << magnetic_declination_ <<
                       ", user-specified offset of " << yaw_offset_ <<
                       " and meridian convergence of " << utm_meridian_convergence_ << "." <<
                       " Transform heading factor is now " << imu_yaw);
@@ -314,8 +314,8 @@ namespace RobotLocalization
 
       cartesian_world_trans_inverse_ = cartesian_world_transform_.inverse();
 
-      ROS_INFO_STREAM("Transform world frame pose is: " << transform_world_pose_);
-      ROS_INFO_STREAM("World frame->cartesian transform is " << cartesian_world_transform_);
+      ROS_DEBUG_STREAM("Transform world frame pose is: " << transform_world_pose_);
+      ROS_DEBUG_STREAM("World frame->cartesian transform is " << cartesian_world_transform_);
 
       transform_good_ = true;
 
@@ -451,7 +451,7 @@ namespace RobotLocalization
     double y_unused;
     int prec_unused;
     GeographicLib::MGRS::Reverse(request.utm_zone, utm_zone_, northp_, x_unused, y_unused, prec_unused, true);
-    ROS_INFO("UTM zone set to %d %s", utm_zone_, northp_ ? "north" : "south");
+    ROS_DEBUG("UTM zone set to %d %s", utm_zone_, northp_ ? "north" : "south");
     return true;
   }
 
@@ -880,9 +880,9 @@ namespace RobotLocalization
       utm_meridian_convergence_ = utm_meridian_convergence_degrees * NavsatConversions::RADIANS_PER_DEGREE;
     }
 
-    ROS_INFO_STREAM("Datum (latitude, longitude, altitude) is (" << std::fixed << msg->latitude << ", " <<
+    ROS_DEBUG_STREAM("Datum (latitude, longitude, altitude) is (" << std::fixed << msg->latitude << ", " <<
                     msg->longitude << ", " << msg->altitude << ")");
-    ROS_INFO_STREAM("Datum " << ((use_local_cartesian_)? "Local Cartesian" : "UTM") <<
+    ROS_DEBUG_STREAM("Datum " << ((use_local_cartesian_)? "Local Cartesian" : "UTM") <<
                     " coordinate is (" << std::fixed << cartesian_x << ", " << cartesian_y << ") zone " << utm_zone_);
 
     transform_cartesian_pose_.setOrigin(tf2::Vector3(cartesian_x, cartesian_y, msg->altitude));
@@ -895,7 +895,7 @@ namespace RobotLocalization
     tf2::fromMsg(msg->pose.pose, transform_world_pose_);
     has_transform_odom_ = true;
 
-    ROS_INFO_STREAM_ONCE("Initial odometry pose is " << transform_world_pose_);
+    ROS_DEBUG_STREAM_ONCE("Initial odometry pose is " << transform_world_pose_);
 
     // Users can optionally use the (potentially fused) heading from
     // the odometry source, which may have multiple fused sources of

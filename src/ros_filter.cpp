@@ -197,7 +197,7 @@ namespace RobotLocalization
     }
     else
     {
-      ROS_INFO("Toggling filter measurement filtering to %s.", req.on ? "On" : "Off");
+      ROS_DEBUG("Toggling filter measurement filtering to %s.", req.on ? "On" : "Off");
       toggledOn_ = req.on;
       resp.status = true;
     }
@@ -936,7 +936,7 @@ namespace RobotLocalization
       }
       else
       {
-        ROS_INFO_STREAM("use_control is set to true, but no deceleration_limits specified. Will use acceleration "
+        ROS_DEBUG_STREAM("use_control is set to true, but no deceleration_limits specified. Will use acceleration "
           "limits.");
         decelerationLimits = accelerationLimits;
       }
@@ -954,7 +954,7 @@ namespace RobotLocalization
       }
       else
       {
-        ROS_INFO_STREAM("use_control is set to true, but no deceleration_gains specified. Will use acceleration "
+        ROS_DEBUG_STREAM("use_control is set to true, but no deceleration_gains specified. Will use acceleration "
           "gains.");
         decelerationGains = accelerationGains;
       }
@@ -1873,7 +1873,7 @@ namespace RobotLocalization
     // Wait for the filter to be enabled
     if (!enabled_)
     {
-      ROS_INFO_STREAM_ONCE("Filter is disabled. To enable it call the " << enableFilterSrv_.getService() <<
+      ROS_DEBUG_STREAM_ONCE("Filter is disabled. To enable it call the " << enableFilterSrv_.getService() <<
         " service");
       return;
     }
@@ -2035,7 +2035,7 @@ namespace RobotLocalization
   {
     RF_DEBUG("------ RosFilter::setPoseCallback ------\nPose message:\n" << *msg);
 
-    ROS_INFO_STREAM("Received set_pose request with value\n" << *msg);
+    ROS_DEBUG_STREAM("Received set_pose request with value\n" << *msg);
 
     std::string topicName("setPose");
 
@@ -2101,7 +2101,7 @@ namespace RobotLocalization
     }
     else
     {
-      ROS_INFO_STREAM("[" << ros::this_node::getName() << ":] Enabling filter...");
+      ROS_DEBUG_STREAM("[" << ros::this_node::getName() << ":] Enabling filter...");
       enabled_ = true;
     }
     return true;

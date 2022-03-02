@@ -90,7 +90,7 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "robot_localization_listener_node");
 
   RobotLocalization::RobotLocalizationListenerNode rlln;
-  ROS_INFO_STREAM("Robot Localization Listener Node: Ready to handle GetState requests at " << rlln.getService());
+  ROS_DEBUG_STREAM("Robot Localization Listener Node: Ready to handle GetState requests at " << rlln.getService());
 
   ros::spin();
 

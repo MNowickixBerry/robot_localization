@@ -156,14 +156,14 @@ RosRobotLocalizationListener::RosRobotLocalizationListener():
 
   sync_.registerCallback(&RosRobotLocalizationListener::odomAndAccelCallback, this);
 
-  ROS_INFO_STREAM("Ros Robot Localization Listener: Listening to topics " <<
+  ROS_DEBUG_STREAM("Ros Robot Localization Listener: Listening to topics " <<
                   odom_sub_.getTopic() << " and " << accel_sub_.getTopic());
 
   // Wait until the base and world frames are set by the incoming messages
   while (ros::ok() && base_frame_id_.empty())
   {
     ros::spinOnce();
-    ROS_INFO_STREAM_THROTTLE(1.0, "Ros Robot Localization Listener: Waiting for incoming messages on topics " <<
+    ROS_DEBUG_STREAM_THROTTLE(1.0, "Ros Robot Localization Listener: Waiting for incoming messages on topics " <<
                              odom_sub_.getTopic() << " and " << accel_sub_.getTopic());
     ros::Duration(0.1).sleep();
   }
@@ -514,7 +514,7 @@ bool RosRobotLocalizationListener::getState(const ros::Time& ros_time, const std
   double time;
   if ( ros_time.isZero() )
   {
-    ROS_INFO("Ros Robot Localization Listener: State requested at time = zero, returning state at current time");
+    ROS_DEBUG("Ros Robot Localization Listener: State requested at time = zero, returning state at current time");
     time = ros::Time::now().toSec();
   }
   else

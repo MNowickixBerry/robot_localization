@@ -1,3 +1,7 @@
+============
+This is a modified version of the robot_localization that uses `ROS_DEBUG` instead of `ROS_INFO` to inform about the current status of operation.
+
+
 robot_localization
 ==================
 

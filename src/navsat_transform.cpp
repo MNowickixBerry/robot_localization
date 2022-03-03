@@ -98,12 +98,12 @@ namespace RobotLocalization
     if (nh_priv.getParam("broadcast_utm_transform", broadcast_cartesian_transform_))
     {
       // ROS_WARN("navsat_transform, Parameter 'broadcast_utm_transform' has been deprecated. Please use"
-               "'broadcast_cartesian_transform' instead.");
+      //         "'broadcast_cartesian_transform' instead.");
     }
     if (nh_priv.getParam("broadcast_utm_transform_as_parent_frame", broadcast_cartesian_transform_as_parent_frame_))
     {
       // ROS_WARN("navsat_transform, Parameter 'broadcast_utm_transform_as_parent_frame' has been deprecated. Please use"
-               "'broadcast_cartesian_transform_as_parent_frame' instead.");
+      //         "'broadcast_cartesian_transform_as_parent_frame' instead.");
     }
 
     // Check if tf warnings should be suppressed
@@ -136,7 +136,7 @@ namespace RobotLocalization
         if (datum_config.size() > 3)
         {
           // ROS_WARN_STREAM("Deprecated datum parameter configuration detected. Only the first three parameters "
-              "(latitude, longitude, yaw) will be used. frame_ids will be derived from odometry and navsat inputs.");
+          //    "(latitude, longitude, yaw) will be used. frame_ids will be derived from odometry and navsat inputs.");
         }
 
         std::ostringstream ostr;
@@ -286,9 +286,9 @@ namespace RobotLocalization
       imu_yaw += (magnetic_declination_ + yaw_offset_ + utm_meridian_convergence_);
 
       // ROS_DEBUG_STREAM("Corrected for magnetic declination of " << std::fixed << magnetic_declination_ <<
-                      ", user-specified offset of " << yaw_offset_ <<
-                      " and meridian convergence of " << utm_meridian_convergence_ << "." <<
-                      " Transform heading factor is now " << imu_yaw);
+      //                ", user-specified offset of " << yaw_offset_ <<
+      //                " and meridian convergence of " << utm_meridian_convergence_ << "." <<
+      //                " Transform heading factor is now " << imu_yaw);
 
       // Convert to tf-friendly structures
       tf2::Quaternion imu_quat;
@@ -553,7 +553,7 @@ namespace RobotLocalization
       if (gps_frame_id_ != "")
       {
         // ROS_WARN_STREAM_ONCE("Unable to obtain " << base_link_frame_id_ << "->" << gps_frame_id_ <<
-          " transform. Will assume navsat device is mounted at robot's origin");
+        //  " transform. Will assume navsat device is mounted at robot's origin");
       }
 
       robot_cartesian_pose = gps_cartesian_pose;
@@ -598,13 +598,13 @@ namespace RobotLocalization
       else
       {
         // ROS_WARN_STREAM_THROTTLE(5.0, "Could not obtain " << world_frame_id_ << "->" << base_link_frame_id_ <<
-          " transform. Will not remove offset of navsat device from robot's origin.");
+        //  " transform. Will not remove offset of navsat device from robot's origin.");
       }
     }
     else
     {
       // ROS_WARN_STREAM_THROTTLE(5.0, "Could not obtain " << base_link_frame_id_ << "->" << gps_frame_id_ <<
-        " transform. Will not remove offset of navsat device from robot's origin.");
+      //  " transform. Will not remove offset of navsat device from robot's origin.");
     }
   }
 
@@ -615,7 +615,7 @@ namespace RobotLocalization
     if (gps_frame_id_.empty())
     {
       // ROS_WARN_STREAM_ONCE("NavSatFix message has empty frame_id. Will assume navsat device is mounted at robot's "
-        "origin.");
+      //  "origin.");
     }
 
     // Make sure the GPS data is usable
@@ -723,7 +723,7 @@ namespace RobotLocalization
         transform_orientation_.setRPY(rpy_angles.getX(), rpy_angles.getY(), rpy_angles.getZ());
 
         // ROS_DEBUG_STREAM("Initial corrected orientation roll, pitch, yaw is (" <<
-                         rpy_angles.getX() << ", " << rpy_angles.getY() << ", " << rpy_angles.getZ() << ")");
+        //                 rpy_angles.getX() << ", " << rpy_angles.getY() << ", " << rpy_angles.getZ() << ")");
 
         has_transform_imu_ = true;
       }
@@ -881,9 +881,9 @@ namespace RobotLocalization
     }
 
     // ROS_DEBUG_STREAM("Datum (latitude, longitude, altitude) is (" << std::fixed << msg->latitude << ", " <<
-                    msg->longitude << ", " << msg->altitude << ")");
+    //                msg->longitude << ", " << msg->altitude << ")");
     // ROS_DEBUG_STREAM("Datum " << ((use_local_cartesian_)? "Local Cartesian" : "UTM") <<
-                    " coordinate is (" << std::fixed << cartesian_x << ", " << cartesian_y << ") zone " << utm_zone_);
+    //                " coordinate is (" << std::fixed << cartesian_x << ", " << cartesian_y << ") zone " << utm_zone_);
 
     transform_cartesian_pose_.setOrigin(tf2::Vector3(cartesian_x, cartesian_y, msg->altitude));
     transform_cartesian_pose_.setRotation(tf2::Quaternion::getIdentity());

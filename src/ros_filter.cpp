@@ -317,7 +317,7 @@ namespace RobotLocalization
     else
     {
       // ROS_WARN_STREAM_THROTTLE(5.0, "Commanded velocities must be given in the robot's body frame (" <<
-        baseLinkFrameId_ << "). Message frame was " << msg->header.frame_id);
+      //  baseLinkFrameId_ << "). Message frame was " << msg->header.frame_id);
     }
   }
 
@@ -612,9 +612,9 @@ namespace RobotLocalization
         {
           RF_DEBUG("ERROR: history interval is too small to revert to time " << firstMeasurementTime << "\n");
           // ROS_WARN_STREAM_DELAYED_THROTTLE(historyLength_, "Received old measurement for topic " <<
-            firstMeasurementTopic << ", but history interval is insufficiently sized. Measurement time is " <<
-            std::setprecision(20) << firstMeasurementTime << ", current time is " << currentTime.toSec() <<
-            ", history length is " << historyLength_ << ".");
+          //  firstMeasurementTopic << ", but history interval is insufficiently sized. Measurement time is " <<
+          //  std::setprecision(20) << firstMeasurementTime << ", current time is " << currentTime.toSec() <<
+          //  ", history length is " << historyLength_ << ".");
           restoredMeasurementCount = 0;
         }
 
@@ -756,7 +756,7 @@ namespace RobotLocalization
       catch(const std::exception &e)
       {
         // ROS_WARN_STREAM("RosFilter::loadParams() - unable to create debug output file" << debugOutFile
-                        << ". Error was " << e.what() << "\n");
+        //                << ". Error was " << e.what() << "\n");
       }
     }
 
@@ -856,13 +856,13 @@ namespace RobotLocalization
     if (!smoothLaggedData_ && ::fabs(historyLength_) > 1e-9)
     {
       // ROS_WARN_STREAM("Filter history interval of " << historyLength_ <<
-                      " specified, but smooth_lagged_data is set to false. Lagged data will not be smoothed.");
+      //                " specified, but smooth_lagged_data is set to false. Lagged data will not be smoothed.");
     }
 
     if (smoothLaggedData_ && historyLength_ < -1e9)
     {
       // ROS_WARN_STREAM("Negative history interval of " << historyLength_ <<
-                      " specified. Absolute value will be assumed.");
+      //                " specified. Absolute value will be assumed.");
     }
 
     historyLength_ = ::fabs(historyLength_);
@@ -937,7 +937,7 @@ namespace RobotLocalization
       else
       {
         // ROS_DEBUG_STREAM("use_control is set to true, but no deceleration_limits specified. Will use acceleration "
-          "limits.");
+        //  "limits.");
         decelerationLimits = accelerationLimits;
       }
 
@@ -955,7 +955,7 @@ namespace RobotLocalization
       else
       {
         // ROS_DEBUG_STREAM("use_control is set to true, but no deceleration_gains specified. Will use acceleration "
-          "gains.");
+        //  "gains.");
         decelerationGains = accelerationGains;
       }
     }
@@ -1060,7 +1060,7 @@ namespace RobotLocalization
         if (relative && differential)
         {
           // ROS_WARN_STREAM("Both " << odomTopicName << "_differential" << " and " << odomTopicName <<
-                          "_relative were set to true. Using differential mode.");
+          //                "_relative were set to true. Using differential mode.");
 
           relative = false;
         }
@@ -1186,7 +1186,7 @@ namespace RobotLocalization
         if (relative && differential)
         {
           // ROS_WARN_STREAM("Both " << poseTopicName << "_differential" << " and " << poseTopicName <<
-                          "_relative were set to true. Using differential mode.");
+          //                "_relative were set to true. Using differential mode.");
 
           relative = false;
         }
@@ -1249,7 +1249,7 @@ namespace RobotLocalization
         else
         {
           // ROS_WARN_STREAM("Warning: " << poseTopic << " is listed as an input topic, "
-                          "but all pose update variables are false");
+          //                "but all pose update variables are false");
         }
 
         RF_DEBUG("Subscribed to " << poseTopic << " (" << poseTopicName << ")\n\t" <<
@@ -1314,7 +1314,7 @@ namespace RobotLocalization
         else
         {
           // ROS_WARN_STREAM("Warning: " << twistTopic << " is listed as an input topic, "
-                          "but all twist update variables are false");
+          //                "but all twist update variables are false");
         }
 
         RF_DEBUG("Subscribed to " << twistTopic << " (" << twistTopicName << ")\n\t" <<
@@ -1347,7 +1347,7 @@ namespace RobotLocalization
         if (relative && differential)
         {
           // ROS_WARN_STREAM("Both " << imuTopicName << "_differential" << " and " << imuTopicName <<
-                          "_relative were set to true. Using differential mode.");
+          //                "_relative were set to true. Using differential mode.");
 
           relative = false;
         }
@@ -1388,7 +1388,7 @@ namespace RobotLocalization
         if (positionUpdateSum > 0)
         {
           // ROS_WARN_STREAM("Warning: Some position entries in parameter " << imuTopicName << "_config are listed true, "
-                          "but sensor_msgs/Imu contains no information about position");
+          //                "but sensor_msgs/Imu contains no information about position");
         }
         std::vector<int> linearVelocityUpdateVec(updateVec.begin() + POSITION_V_OFFSET,
                                                  updateVec.begin() + POSITION_V_OFFSET + LINEAR_VELOCITY_SIZE);
@@ -1398,7 +1398,7 @@ namespace RobotLocalization
         if (linearVelocityUpdateSum > 0)
         {
           // ROS_WARN_STREAM("Warning: Some linear velocity entries in parameter " << imuTopicName << "_config are listed "
-                          "true, but an sensor_msgs/Imu contains no information about linear velocities");
+          //                "true, but an sensor_msgs/Imu contains no information about linear velocities");
         }
 
         std::vector<int> poseUpdateVec = updateVec;
@@ -1477,7 +1477,7 @@ namespace RobotLocalization
         else
         {
           // ROS_WARN_STREAM("Warning: " << imuTopic << " is listed as an input topic, "
-                          "but all its update variables are false");
+          //                "but all its update variables are false");
         }
 
         if (poseUpdateSum > 0)
@@ -1874,7 +1874,7 @@ namespace RobotLocalization
     if (!enabled_)
     {
       // ROS_DEBUG_STREAM_ONCE("Filter is disabled. To enable it call the " << enableFilterSrv_.getService() <<
-        " service");
+      //  " service");
       return;
     }
 
@@ -2097,7 +2097,7 @@ namespace RobotLocalization
     if (enabled_)
     {
       // ROS_WARN_STREAM("[" << ros::this_node::getName() << ":] Asking for enabling filter service, but the filter was "
-        "already enabled! Use param disabled_at_startup.");
+      //  "already enabled! Use param disabled_at_startup.");
     }
     else
     {
@@ -3122,7 +3122,7 @@ namespace RobotLocalization
     RF_DEBUG("\n----- RosFilter::revertTo -----\n");
     RF_DEBUG("\nRequested time was " << std::setprecision(20) << time << "\n")
 
-    size_t history_size = filterStateHistory_.size();
+    // size_t history_size = filterStateHistory_.size();
 
     // Walk back through the queue until we reach a filter state whose time stamp is less than or equal to the
     // requested time. Since every saved state after that time will be overwritten/corrected, we can pop from
@@ -3150,8 +3150,8 @@ namespace RobotLocalization
       {
         RF_DEBUG("Will revert to oldest state at " << lastHistoryState->latestControlTime_ << ".\n");
         // ROS_WARN_STREAM_DELAYED_THROTTLE(historyLength_, "Could not revert to state with time " <<
-          std::setprecision(20) << time << ". Instead reverted to state with time " <<
-          lastHistoryState->lastMeasurementTime_ << ". History size was " << history_size);
+        //  std::setprecision(20) << time << ". Instead reverted to state with time " <<
+        //  lastHistoryState->lastMeasurementTime_ << ". History size was " << history_size);
       }
     }
 

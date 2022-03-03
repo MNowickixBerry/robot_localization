@@ -157,14 +157,14 @@ RosRobotLocalizationListener::RosRobotLocalizationListener():
   sync_.registerCallback(&RosRobotLocalizationListener::odomAndAccelCallback, this);
 
   // ROS_DEBUG_STREAM("Ros Robot Localization Listener: Listening to topics " <<
-                  odom_sub_.getTopic() << " and " << accel_sub_.getTopic());
+  //                odom_sub_.getTopic() << " and " << accel_sub_.getTopic());
 
   // Wait until the base and world frames are set by the incoming messages
   while (ros::ok() && base_frame_id_.empty())
   {
     ros::spinOnce();
     // ROS_DEBUG_STREAM_THROTTLE(1.0, "Ros Robot Localization Listener: Waiting for incoming messages on topics " <<
-                             odom_sub_.getTopic() << " and " << accel_sub_.getTopic());
+    //                         odom_sub_.getTopic() << " and " << accel_sub_.getTopic());
     ros::Duration(0.1).sleep();
   }
 }
@@ -327,7 +327,7 @@ bool RosRobotLocalizationListener::getState(const double time,
     if ( estimator_->getSize() == 0 )
     {
       // ROS_WARN("Ros Robot Localization Listener: The base or world frame id is not set. "
-               "No odom/accel messages have come in.");
+      //         "No odom/accel messages have come in.");
     }
     else
     {
@@ -341,8 +341,8 @@ bool RosRobotLocalizationListener::getState(const double time,
   if ( estimator_->getState(time, estimator_state) == EstimatorResults::ExtrapolationIntoPast )
   {
     // ROS_WARN("Ros Robot Localization Listener: A state is requested at a time stamp older than the oldest in the "
-             "estimator buffer. The result is an extrapolation into the past. Maybe you should increase the buffer "
-             "size?");
+    //         "estimator buffer. The result is an extrapolation into the past. Maybe you should increase the buffer "
+    //         "size?");
   }
 
   // If no world_frame_id is specified, we will default to the world frame_id of the received odometry message

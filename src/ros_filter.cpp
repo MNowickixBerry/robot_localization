@@ -192,12 +192,12 @@ namespace RobotLocalization
   {
     if (req.on == toggledOn_)
     {
-      ROS_WARN_STREAM("Service was called to toggle filter processing but state was already as requested.");
+      // ROS_WARN_STREAM("Service was called to toggle filter processing but state was already as requested.");
       resp.status = false;
     }
     else
     {
-      ROS_DEBUG("Toggling filter measurement filtering to %s.", req.on ? "On" : "Off");
+      // ROS_DEBUG("Toggling filter measurement filtering to %s.", req.on ? "On" : "Off");
       toggledOn_ = req.on;
       resp.status = true;
     }
@@ -316,7 +316,7 @@ namespace RobotLocalization
     }
     else
     {
-      ROS_WARN_STREAM_THROTTLE(5.0, "Commanded velocities must be given in the robot's body frame (" <<
+      // ROS_WARN_STREAM_THROTTLE(5.0, "Commanded velocities must be given in the robot's body frame (" <<
         baseLinkFrameId_ << "). Message frame was " << msg->header.frame_id);
     }
   }
@@ -611,7 +611,7 @@ namespace RobotLocalization
         if (!revertTo(firstMeasurementTime - 1e-9))  // revertTo may invalidate firstMeasurement
         {
           RF_DEBUG("ERROR: history interval is too small to revert to time " << firstMeasurementTime << "\n");
-          ROS_WARN_STREAM_DELAYED_THROTTLE(historyLength_, "Received old measurement for topic " <<
+          // ROS_WARN_STREAM_DELAYED_THROTTLE(historyLength_, "Received old measurement for topic " <<
             firstMeasurementTopic << ", but history interval is insufficiently sized. Measurement time is " <<
             std::setprecision(20) << firstMeasurementTime << ", current time is " << currentTime.toSec() <<
             ", history length is " << historyLength_ << ".");
@@ -750,12 +750,12 @@ namespace RobotLocalization
         }
         else
         {
-          ROS_WARN_STREAM("RosFilter::loadParams() - unable to create debug output file " << debugOutFile);
+          // ROS_WARN_STREAM("RosFilter::loadParams() - unable to create debug output file " << debugOutFile);
         }
       }
       catch(const std::exception &e)
       {
-        ROS_WARN_STREAM("RosFilter::loadParams() - unable to create debug output file" << debugOutFile
+        // ROS_WARN_STREAM("RosFilter::loadParams() - unable to create debug output file" << debugOutFile
                         << ". Error was " << e.what() << "\n");
       }
     }
@@ -855,13 +855,13 @@ namespace RobotLocalization
 
     if (!smoothLaggedData_ && ::fabs(historyLength_) > 1e-9)
     {
-      ROS_WARN_STREAM("Filter history interval of " << historyLength_ <<
+      // ROS_WARN_STREAM("Filter history interval of " << historyLength_ <<
                       " specified, but smooth_lagged_data is set to false. Lagged data will not be smoothed.");
     }
 
     if (smoothLaggedData_ && historyLength_ < -1e9)
     {
-      ROS_WARN_STREAM("Negative history interval of " << historyLength_ <<
+      // ROS_WARN_STREAM("Negative history interval of " << historyLength_ <<
                       " specified. Absolute value will be assumed.");
     }
 
@@ -910,7 +910,7 @@ namespace RobotLocalization
       }
       else
       {
-        ROS_WARN_STREAM("use_control is set to true, but acceleration_limits is missing. Will use default values.");
+        // ROS_WARN_STREAM("use_control is set to true, but acceleration_limits is missing. Will use default values.");
       }
 
       if (nhLocal_.getParam("acceleration_gains", accelerationGains))
@@ -936,7 +936,7 @@ namespace RobotLocalization
       }
       else
       {
-        ROS_DEBUG_STREAM("use_control is set to true, but no deceleration_limits specified. Will use acceleration "
+        // ROS_DEBUG_STREAM("use_control is set to true, but no deceleration_limits specified. Will use acceleration "
           "limits.");
         decelerationLimits = accelerationLimits;
       }
@@ -954,7 +954,7 @@ namespace RobotLocalization
       }
       else
       {
-        ROS_DEBUG_STREAM("use_control is set to true, but no deceleration_gains specified. Will use acceleration "
+        // ROS_DEBUG_STREAM("use_control is set to true, but no deceleration_gains specified. Will use acceleration "
           "gains.");
         decelerationGains = accelerationGains;
       }
@@ -1059,7 +1059,7 @@ namespace RobotLocalization
 
         if (relative && differential)
         {
-          ROS_WARN_STREAM("Both " << odomTopicName << "_differential" << " and " << odomTopicName <<
+          // ROS_WARN_STREAM("Both " << odomTopicName << "_differential" << " and " << odomTopicName <<
                           "_relative were set to true. Using differential mode.");
 
           relative = false;
@@ -1185,7 +1185,7 @@ namespace RobotLocalization
 
         if (relative && differential)
         {
-          ROS_WARN_STREAM("Both " << poseTopicName << "_differential" << " and " << poseTopicName <<
+          // ROS_WARN_STREAM("Both " << poseTopicName << "_differential" << " and " << poseTopicName <<
                           "_relative were set to true. Using differential mode.");
 
           relative = false;
@@ -1248,7 +1248,7 @@ namespace RobotLocalization
         }
         else
         {
-          ROS_WARN_STREAM("Warning: " << poseTopic << " is listed as an input topic, "
+          // ROS_WARN_STREAM("Warning: " << poseTopic << " is listed as an input topic, "
                           "but all pose update variables are false");
         }
 
@@ -1313,7 +1313,7 @@ namespace RobotLocalization
         }
         else
         {
-          ROS_WARN_STREAM("Warning: " << twistTopic << " is listed as an input topic, "
+          // ROS_WARN_STREAM("Warning: " << twistTopic << " is listed as an input topic, "
                           "but all twist update variables are false");
         }
 
@@ -1346,7 +1346,7 @@ namespace RobotLocalization
 
         if (relative && differential)
         {
-          ROS_WARN_STREAM("Both " << imuTopicName << "_differential" << " and " << imuTopicName <<
+          // ROS_WARN_STREAM("Both " << imuTopicName << "_differential" << " and " << imuTopicName <<
                           "_relative were set to true. Using differential mode.");
 
           relative = false;
@@ -1387,7 +1387,7 @@ namespace RobotLocalization
         int positionUpdateSum = std::accumulate(positionUpdateVec.begin(), positionUpdateVec.end(), 0);
         if (positionUpdateSum > 0)
         {
-          ROS_WARN_STREAM("Warning: Some position entries in parameter " << imuTopicName << "_config are listed true, "
+          // ROS_WARN_STREAM("Warning: Some position entries in parameter " << imuTopicName << "_config are listed true, "
                           "but sensor_msgs/Imu contains no information about position");
         }
         std::vector<int> linearVelocityUpdateVec(updateVec.begin() + POSITION_V_OFFSET,
@@ -1397,7 +1397,7 @@ namespace RobotLocalization
                                                       0);
         if (linearVelocityUpdateSum > 0)
         {
-          ROS_WARN_STREAM("Warning: Some linear velocity entries in parameter " << imuTopicName << "_config are listed "
+          // ROS_WARN_STREAM("Warning: Some linear velocity entries in parameter " << imuTopicName << "_config are listed "
                           "true, but an sensor_msgs/Imu contains no information about linear velocities");
         }
 
@@ -1440,17 +1440,17 @@ namespace RobotLocalization
         // Check if we're using control input for any of the acceleration variables; turn off if so
         if (static_cast<bool>(controlUpdateVector[ControlMemberVx]) && static_cast<bool>(accelUpdateVec[StateMemberAx]))
         {
-          ROS_WARN_STREAM("X acceleration is being measured from IMU; X velocity control input is disabled");
+          // ROS_WARN_STREAM("X acceleration is being measured from IMU; X velocity control input is disabled");
           controlUpdateVector[ControlMemberVx] = 0;
         }
         if (static_cast<bool>(controlUpdateVector[ControlMemberVy]) && static_cast<bool>(accelUpdateVec[StateMemberAy]))
         {
-          ROS_WARN_STREAM("Y acceleration is being measured from IMU; Y velocity control input is disabled");
+          // ROS_WARN_STREAM("Y acceleration is being measured from IMU; Y velocity control input is disabled");
           controlUpdateVector[ControlMemberVy] = 0;
         }
         if (static_cast<bool>(controlUpdateVector[ControlMemberVz]) && static_cast<bool>(accelUpdateVec[StateMemberAz]))
         {
-          ROS_WARN_STREAM("Z acceleration is being measured from IMU; Z velocity control input is disabled");
+          // ROS_WARN_STREAM("Z acceleration is being measured from IMU; Z velocity control input is disabled");
           controlUpdateVector[ControlMemberVz] = 0;
         }
 
@@ -1476,7 +1476,7 @@ namespace RobotLocalization
         }
         else
         {
-          ROS_WARN_STREAM("Warning: " << imuTopic << " is listed as an input topic, "
+          // ROS_WARN_STREAM("Warning: " << imuTopic << " is listed as an input topic, "
                           "but all its update variables are false");
         }
 
@@ -1867,13 +1867,13 @@ namespace RobotLocalization
     const double loop_elapsed = (event.current_real - event.last_expected).toSec();
     if (loop_elapsed > 2./frequency_)
     {
-      ROS_WARN_STREAM("Failed to meet update rate! Took " << std::setprecision(20) << loop_elapsed);
+      // ROS_WARN_STREAM("Failed to meet update rate! Took " << std::setprecision(20) << loop_elapsed);
     }
 
     // Wait for the filter to be enabled
     if (!enabled_)
     {
-      ROS_DEBUG_STREAM_ONCE("Filter is disabled. To enable it call the " << enableFilterSrv_.getService() <<
+      // ROS_DEBUG_STREAM_ONCE("Filter is disabled. To enable it call the " << enableFilterSrv_.getService() <<
         " service");
       return;
     }
@@ -2035,7 +2035,7 @@ namespace RobotLocalization
   {
     RF_DEBUG("------ RosFilter::setPoseCallback ------\nPose message:\n" << *msg);
 
-    ROS_DEBUG_STREAM("Received set_pose request with value\n" << *msg);
+    // ROS_DEBUG_STREAM("Received set_pose request with value\n" << *msg);
 
     std::string topicName("setPose");
 
@@ -2096,12 +2096,12 @@ namespace RobotLocalization
     RF_DEBUG("\n[" << ros::this_node::getName() << ":]" << " ------ /RosFilter::enableFilterSrvCallback ------\n");
     if (enabled_)
     {
-      ROS_WARN_STREAM("[" << ros::this_node::getName() << ":] Asking for enabling filter service, but the filter was "
+      // ROS_WARN_STREAM("[" << ros::this_node::getName() << ":] Asking for enabling filter service, but the filter was "
         "already enabled! Use param disabled_at_startup.");
     }
     else
     {
-      ROS_DEBUG_STREAM("[" << ros::this_node::getName() << ":] Enabling filter...");
+      // ROS_DEBUG_STREAM("[" << ros::this_node::getName() << ":] Enabling filter...");
       enabled_ = true;
     }
     return true;
@@ -2360,7 +2360,7 @@ namespace RobotLocalization
 
       if (topicConfig.size() != STATE_SIZE)
       {
-        ROS_WARN_STREAM("Configuration vector for " << topicConfigName << " should have 15 entries.");
+        // ROS_WARN_STREAM("Configuration vector for " << topicConfigName << " should have 15 entries.");
       }
 
       for (int i = 0; i < topicConfig.size(); i++)
@@ -2474,7 +2474,7 @@ namespace RobotLocalization
           tf2::fromMsg(msg->orientation, curAttitude);
           if (fabs(curAttitude.length() - 1.0) > 0.01)
           {
-            ROS_WARN_ONCE("An input was not normalized, this should NOT happen, but will normalize.");
+            // ROS_WARN_ONCE("An input was not normalized, this should NOT happen, but will normalize.");
             curAttitude.normalize();
           }
           trans.setRotation(curAttitude);
@@ -2637,7 +2637,7 @@ namespace RobotLocalization
       tf2::fromMsg(msg->pose.pose.orientation, orientation);
       if (fabs(orientation.length() - 1.0) > 0.01)
       {
-        ROS_WARN_ONCE("An input was not normalized, this should NOT happen, but will normalize.");
+        // ROS_WARN_ONCE("An input was not normalized, this should NOT happen, but will normalize.");
         orientation.normalize();
       }
     }
@@ -3149,7 +3149,7 @@ namespace RobotLocalization
       if (lastHistoryState)
       {
         RF_DEBUG("Will revert to oldest state at " << lastHistoryState->latestControlTime_ << ".\n");
-        ROS_WARN_STREAM_DELAYED_THROTTLE(historyLength_, "Could not revert to state with time " <<
+        // ROS_WARN_STREAM_DELAYED_THROTTLE(historyLength_, "Could not revert to state with time " <<
           std::setprecision(20) << time << ". Instead reverted to state with time " <<
           lastHistoryState->lastMeasurementTime_ << ". History size was " << history_size);
       }
